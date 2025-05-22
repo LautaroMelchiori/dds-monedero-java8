@@ -14,3 +14,14 @@
 al igual que el limite de depositos diario (mediante un atributo por ej). Decido no hacerlo ya que no es un requerimiento actualmente
 <br>
 (YAGNI) y no seria muy dificil agregarlo en el futuro, por lo que priorizo la simplicidad 
+
+>Long Method en cuenta.sacar(): similar al que habia en cuenta.poner()
+- Refactor: extract method, la validacion entera se mueve a un metodo que se encargue de validar que no se extraiga
+<br>
+mas de lo que hay en cuenta ni mas del limite diario
+- Nota: nuevamente el limite diario se podria inyectar como atributo, al no ser un requerimiento explicito aplico YAGNI
+<br>
+Tambien podria descomponerse la validacion en 2 metodos (uno para cuando queres sacar mas de lo que tenes y otro cuando superas el limite diario)
+<br>
+Decidi no hacerlo ya que lo considero agregar una complejidad innecesaria para 2 chequeos triviales, valore mas la simplicidad
+
