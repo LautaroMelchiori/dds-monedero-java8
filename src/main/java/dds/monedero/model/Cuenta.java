@@ -29,13 +29,25 @@ public class Cuenta {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
-    new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
+    this.agregarDeposito(LocalDate.now(), cuanto);
   }
 
   public void sacar(double cuanto) {
     this.validarMonto(cuanto);
     this.validarLimitesDeExtraccion(cuanto);
-    new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+    this.agregarExtraccion(LocalDate.now(), cuanto);
+  }
+
+  public void agregarExtraccion(LocalDate unaFecha, double unMonto) {
+    this.setSaldo(this.getSaldo() - unMonto);
+    Movimiento extraccion = new Movimiento(unaFecha, unMonto, false);
+    this.movimientos.add(extraccion);
+  }
+
+  public void agregarDeposito(LocalDate unaFecha, double unMonto) {
+    this.setSaldo(this.getSaldo() + unMonto);
+    Movimiento deposito = new Movimiento(unaFecha, unMonto, true);
+    this.movimientos.add(deposito);
   }
 
   public boolean cantidadDeDepositosSupera(int unLimite) {

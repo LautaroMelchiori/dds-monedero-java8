@@ -25,3 +25,9 @@ Tambien podria descomponerse la validacion en 2 metodos (uno para cuando queres 
 <br>
 Decidi no hacerlo ya que lo considero agregar una complejidad innecesaria para 2 chequeos triviales, valore mas la simplicidad
 
+>Inapropiate Intimacy entre Cuentas y Movimientos: la cuenta esta creando un movimiento y se pasa a si misma como objeto
+<br>
+y es el movimiento quien se mete en la lista de movimientos de la cuenta y le actualiza el saldo
+- Refactor: move method, pasamos la responsabilidad y el comportamiento de modificar el estado de la cuenta a la cuenta en si
+<br>
+Asi, preservamos mejor el encapsulamiento y la cohesion de ambas clases
