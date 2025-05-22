@@ -31,3 +31,11 @@ y es el movimiento quien se mete en la lista de movimientos de la cuenta y le ac
 - Refactor: move method, pasamos la responsabilidad y el comportamiento de modificar el estado de la cuenta a la cuenta en si
 <br>
 Asi, preservamos mejor el encapsulamiento y la cohesion de ambas clases
+
+> Type test/temporary field en clase Movimiento: el uso de un booleano para determinar si un movimiento es extraccion o deposito
+<br>
+> y el uso de condicionales para determinar un comportamiento diferenciado indica que me estoy perdiendo una abstraccion y uso de polimorfismo
+- Refactor: extract class y aplicar polimorfismo, creo clases Extraccion y Deposito que sigue Interfaz Movimiento
+- Nota: esto tambien modifica el codigo de la clase cuenta y su forma de usar los Movimientos. 
+<br>Si bien introduce un poco mas de complejidad (una nueva clase) logra mejores abstracciones y me permite aplicar
+<br>polimorfismo, dandome un codigo mas legible y extensible, por lo que creo que es un cambio netamente positivo.

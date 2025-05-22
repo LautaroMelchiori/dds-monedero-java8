@@ -36,13 +36,13 @@ public class Cuenta {
 
   public void agregarExtraccion(LocalDate unaFecha, double unMonto) {
     this.setSaldo(this.getSaldo() - unMonto);
-    Movimiento extraccion = new Movimiento(unaFecha, unMonto, false);
+    Movimiento extraccion = new Extraccion(unaFecha, unMonto);
     this.movimientos.add(extraccion);
   }
 
   public void agregarDeposito(LocalDate unaFecha, double unMonto) {
     this.setSaldo(this.getSaldo() + unMonto);
-    Movimiento deposito = new Movimiento(unaFecha, unMonto, true);
+    Movimiento deposito = new Deposito(unaFecha, unMonto);
     this.movimientos.add(deposito);
   }
 
@@ -54,7 +54,7 @@ public class Cuenta {
 
   public boolean cantidadDeDepositosSupera(int unLimite) {
     return this.getMovimientos().stream()
-        .filter(movimiento -> movimiento.fueDepositado(LocalDate.now()))
+        .filter(movimiento -> movimiento.fueDepositadoEn(LocalDate.now()))
         .count() >= unLimite;
   }
 
@@ -70,14 +70,9 @@ public class Cuenta {
     }
   }
 
-  public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
-    var movimiento = new Movimiento(fecha, cuanto, esDeposito);
-    movimientos.add(movimiento);
-  }
-
   public double getMontoExtraidoA(LocalDate fecha) {
     return getMovimientos().stream()
-        .filter(movimiento -> movimiento.fueExtraido(fecha))
+        .filter(movimiento -> movimiento.fueExtraidoEn(fecha))
         .mapToDouble(Movimiento::getMonto)
         .sum();
   }
