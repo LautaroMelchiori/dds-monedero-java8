@@ -25,9 +25,7 @@ public class Cuenta {
   public void poner(double cuanto) {
     this.validarMonto(cuanto);
 
-    if (getMovimientos().stream()
-        .filter(movimiento -> movimiento.fueDepositado(LocalDate.now()))
-        .count() >= 3) {
+    if (this.cantidadDeDepositosSupera(3)) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
@@ -47,6 +45,12 @@ public class Cuenta {
           "No puede extraer mas de $ " + 1000 + " diarios, " + "límite: " + limite);
     }
     new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+  }
+
+  public boolean cantidadDeDepositosSupera(int unLimite) {
+    return this.getMovimientos().stream()
+        .filter(movimiento -> movimiento.fueDepositado(LocalDate.now()))
+        .count() >= unLimite;
   }
 
   public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
@@ -82,5 +86,4 @@ public class Cuenta {
       throw new MontoNegativoException(unMonto + ": el monto a ingresar debe ser un valor positivo");
     }
   }
-
 }
